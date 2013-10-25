@@ -1,0 +1,3 @@
+sudo su postgres -c "dropdb uwsgireports"
+sudo su postgres -c "createdb -O web -h 127.0.0.1 -D pg_default -E UTF8 -l en_US.UTF-8 uwsgireports"
+sudo su postgres -c "psql -U web -h 127.0.0.1 uwsgireports < latest.sql"
