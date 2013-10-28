@@ -12,7 +12,18 @@ django-debug-toolbar>=0.9.4
 django-debug-toolbar-mongo>=0.1.10
 pymongo>=2.6.3
 mongoengine>=0.8.4
+flask-mongoengine>=0.7.0
 Flask>=0.10.1
-Flask-PyMongo>=0.3.0
+Flask-Cache>=0.12
+flask-debugtoolbar>=0.8.0
+Flask-Script>=0.6.2
+Flask-Babel>=0.9
+Flask-WTF>=0.9.3
+WTForms>=1.0.5
+pytz>=2013.7
+Jinja2>=2.7.1
+M2Crypto>=0.21.1
+repoze.browserid>=0.3
+#Flask-PyMongo>=0.3.0
 
 
