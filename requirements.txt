@@ -12,5 +12,7 @@ django-debug-toolbar>=0.9.4
 django-debug-toolbar-mongo>=0.1.10
 pymongo>=2.6.3
 mongoengine>=0.8.4
+Flask>=0.10.1
+Flask-PyMongo>=0.3.0
 
 

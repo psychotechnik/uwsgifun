@@ -1,0 +1,14 @@
+[uwsgi]
+vassal_name = %n
+venv_root = /var/local/venv/uwsgifun
+user = www-data
+group = www-data
+home = %(venv_root)
+pythonpath = %(venv_root)/uwsgifun/apps
+pythonpath = %(venv_root)/uwsgifun/lib
+show-config = true
+subscribe-to = 127.0.0.1:7000:uwsgi-%n.local
+socket = %(venv_root)/var/sockets/%n.sock
+chdir=%d
+module = flreports.dashboard:app
+stats =  %(venv_root)/var/sockets/%n-stats.sock
