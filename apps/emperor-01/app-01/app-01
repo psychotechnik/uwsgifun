@@ -1,12 +1,19 @@
 [uwsgi]
-vassal_name = %n
-venv_root = /var/local/venv/uwsgifun
-user = www-data
-group = www-data
+set-ph = venv_root=/var/local/venv/uwsgifun
+plugins-dir = /var/local/venv/uwsgifun/plugins
+plugins = stats_pusher_mongodb
+#vassal_name = %n
+uid = www-data
+gid = www-data
 home = %(venv_root)
 show-config = true
 subscribe-to = 127.0.0.1:7000:uwsgi-%n.local
 socket = %(venv_root)/var/sockets/%n.sock
-chdir=%d
+chdir = %(venv_root)/uwsgifun/apps
+pythonpath = %(venv_root)/uwsgifun/apps
+pythonpath = /var/local/venv/uwsgifun/lib/python2.7/site-packages
 module = werkzeug.testapp:test_app
 stats =  %(venv_root)/var/sockets/%n-stats.sock
+stats-push = mongodb:addr=127.0.0.1:27017,collection=flreports.uwsgistats,freq=4
+py-tracebacker = true
+strict = true
