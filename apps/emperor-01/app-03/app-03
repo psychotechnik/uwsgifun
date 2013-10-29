@@ -1,0 +1,17 @@
+[uwsgi]
+vassal_name = %n
+venv_root = /var/local/venv/uwsgifun
+user = www-data
+group = www-data
+home = %(venv_root)
+pythonpath = %(venv_root)/uwsgifun/apps
+pythonpath = %(venv_root)/uwsgifun/lib
+pythonpath = %(venv_root)/uwsgifun/apps/flreports
+py-auto-reload = 3
+show-config = true
+subscribe-to = 127.0.0.1:7000:uwsgi-%n.local
+socket = %(venv_root)/var/sockets/%n.sock
+chdir = %(venv_root)/uwsgifun/apps/flreports
+#chdir=%d
+module = flreports.runserver:app
+stats =  %(venv_root)/var/sockets/%n-stats.sock

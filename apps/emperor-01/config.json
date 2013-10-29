@@ -1,0 +1,6 @@
+# sudo apt-get install libjansson4
+{"uwsgi": {
+  "socket": ["/tmp/uwsgi.sock", "127.0.0.1:8000"],
+  "master": true,
+  "workers": 3
+}}
