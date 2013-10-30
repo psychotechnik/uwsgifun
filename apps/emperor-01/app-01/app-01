@@ -1,31 +1,33 @@
 [uwsgi]
 
+#ab -vv -n 1 http://uwsgi-app-01.local:80/
+
 set-ph = venv_dir=/var/local/venv/uwsgifun
 #set-ph = stats_mongodb_conn=mongodb:addr=127.0.0.1:27017,collection=flreports.uwsgistats,freq=4
+set-ph = graphite_srv_addr=127.0.0.1:2003
 
-plugins-dir = /var/local/venv/uwsgifun/plugins
-plugins = stats_pusher_mongodb
+#plugins-dir = /var/local/venv/uwsgifun/plugins
+#plugins = stats_pusher_mongodb
 
-module = werkzeug.testapp:test_app
 home = %(venv_dir)
+master = true
+workers = 3
+threads = 10
 
 user = www-data
 group = www-data
 show-config = true
 
 subscribe-to = 127.0.0.1:7000:uwsgi-%n.local
-socket = %(venv_root)/var/sockets/%n.sock
-chdir = %(venv_root)/uwsgifun/apps
-pythonpath = %(venv_root)/uwsgifun/apps
-pythonpath = /var/local/venv/uwsgifun/lib/python2.7/site-packages
-module = werkzeug.testapp:test_app
-stats =  %(venv_root)/var/sockets/%n-stats.sock
-stats-push = mongodb:addr=127.0.0.1:27017,collection=flreports.uwsgistats,freq=4
-py-tracebacker = true
-strict = true
-
 socket = %(venv_dir)/var/sockets/%n.sock
+chdir = %(venv_dir)/uwsgifun/apps
+
+pythonpath = %(venv_dir)/uwsgifun/apps
+pythonpath = %(venv_dir)/lib/python2.7/site-packages
+module = werkzeug.testapp:test_app
 
 stats =  %(venv_dir)/var/sockets/%n-stats.sock
-stats-push = mongodb:addr=127.0.0.1:27017,collection=flreports.uwsgistats,freq=4
-#stats-push = file:path=/tmp/uwsgistats.log,freq=10
+carbon = %(graphite_srv_addr)
+#stats-push = mongodb:addr=127.0.0.1:27017,collection=flreports.uwsgistats,freq=4
+
+py-tracebacker = true

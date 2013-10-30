@@ -1,15 +1,28 @@
 [uwsgi]
 vassal_name = %n
-venv_root = /var/local/venv/uwsgifun
+set-ph = venv_dir=/var/local/venv/graphite-web
+set-ph = graphite_srv_addr=127.0.0.1:2003
+
 user = www-data
 group = www-data
-home = %(venv_root)
+home = %(venv_dir)
 show-config = true
+
 subscribe-to = 127.0.0.1:7000:uwsgi-%n.local
-socket = %(venv_root)/var/sockets/%n.sock
-chdir=%d
-env = DJANGO_SETTINGS_MODULE=myproject.settings
+socket = %(venv_dir)/var/sockets/%n.sock
+chdir=%(venv_dir)/graphite-web
+
+#sudo apt-get install libcairo2-dev
+#pip install psycopg2
+#https://github.com/graphite-project/ceres.git
+pythonpath = %(venv_dir)/graphite-web/webapp
+#pythonpath = %(venv_dir)/lib/python2.7/site-packages
+
+env = DJANGO_SETTINGS_MODULE=graphite.settings
 module = django.core.handlers.wsgi:WSGIHandler()
 processes = 1
 threads = 3
-stats =  %(venv_root)/var/sockets/%n-stats.sock
+
+stats =  %(venv_dir)/var/sockets/%n-stats.sock
+carbon = %(graphite_srv_addr)
+#stats-push = mongodb:addr=127.0.0.1:27017,collection=flreports.uwsgistats,freq=4

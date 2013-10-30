@@ -26,4 +26,11 @@ M2Crypto>=0.21.1
 repoze.browserid>=0.3
 #Flask-PyMongo>=0.3.0
 
+carbon>=0.9.12
+whisper>=0.9.12
+#graphite-web>=0.9.12
+python-memcached>=1.53
+#pycairo>=1.10.0
+
+
 
