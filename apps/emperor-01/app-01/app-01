@@ -1,12 +1,23 @@
 [uwsgi]
-vassal_name = %n
-venv_root = /var/local/venv/uwsgifun
+
+set-ph = venv_dir=/var/local/venv/uwsgifun
+#set-ph = stats_mongodb_conn=mongodb:addr=127.0.0.1:27017,collection=flreports.uwsgistats,freq=4
+
+plugins-dir = /var/local/venv/uwsgifun/plugins
+plugins = stats_pusher_mongodb
+
+module = werkzeug.testapp:test_app
+home = %(venv_dir)
+
 user = www-data
 group = www-data
-home = %(venv_root)
 show-config = true
+
 subscribe-to = 127.0.0.1:7000:uwsgi-%n.local
-socket = %(venv_root)/var/sockets/%n.sock
-chdir=%d
-module = werkzeug.testapp:test_app
-stats =  %(venv_root)/var/sockets/%n-stats.sock
+
+socket = %(venv_dir)/var/sockets/%n.sock
+#chdir=%d
+
+stats =  %(venv_dir)/var/sockets/%n-stats.sock
+stats-push = mongodb:addr=127.0.0.1:27017,collection=flreports.uwsgistats,freq=4
+#stats-push = file:path=/tmp/uwsgistats.log,freq=10
