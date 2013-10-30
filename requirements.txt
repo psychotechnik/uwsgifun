@@ -3,7 +3,7 @@ argparse==1.2.1
 ipdb==0.8
 ipython==1.1.0
 pyzmq==13.1.0
-uWSGI==1.9.18.2
+#uWSGI==1.9.18.2
 wsgiref==0.1.2
 Django==1.5.5
 django-extensions>=1.2.5
